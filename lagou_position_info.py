@@ -1,7 +1,5 @@
 # -*- coding:utf-8 -*-
 
-
-
 import requests
 import urllib2
 import json
@@ -62,6 +60,23 @@ def getLinks(position, city):
 def get_information(position, city):
     conn = pymysql.connect(host='localhost', user='root', passwd=None, port=3306, use_unicode=True, charset='utf8mb4')
     cur = conn.cursor()
+    cur.execute('create database if not EXISTS PositionAnalysis')
+    cur.execute('use PositionAnalysis')
+    cur.execute('drop table lagou_position_info')
+    cur.execute('create table lagou_position_info '
+                '(PositionId int PRIMARY KEY ,'
+                'Position VARCHAR(100), '
+                'Salary VARCHAR(100),'
+                'Publish_time VARCHAR(100),'
+                'City VARCHAR(100),'
+                'District VARCHAR(100),'
+                'BizArea VARCHAR(100),'
+                'Address VARCHAR(100),'
+                'CompanyId int,'
+                'Company VARCHAR(100),'
+                'CompanyLink VARCHAR(100),'
+                'Description TEXT)')
+
     links = getLinks(position, city)
     for i in range(len(links)):
         time.sleep(3)
@@ -117,6 +132,14 @@ def get_information(position, city):
         for i in range(len(des)):
             # description.append(des[i].get_text())
             description = description + des[i].get_text() + '\n'
+
+        sql = "insert into lagou_position_info (PositionId, Position, Salary, Publish_time, City, District, BizArea, Address, CompanyId, Company, CompanyLink, Description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+        cur.execute(sql, (positionId, position, salary, publish_time, city, district, bizArea, address, companyId, company, companyLink,description))
+        conn.commit()
+
+    cur.close()
+    conn.close()
 
 if __name__ =="__main__":
     position = raw_input("请输入搜索职位：>")
