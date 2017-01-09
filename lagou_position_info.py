@@ -7,25 +7,26 @@ from bs4 import BeautifulSoup as bf
 import re
 import time
 import pymysql
+from download import download
 
 
-# 头部信息
-def handler(url):
-    session = requests.Session()
-    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'
-    headers = {
-        'Host': 'www.lagou.com',
-        'User-Agent': user_agent,
-        'Upgrade-Insecure-Requests': '1',
-    }
-    html = session.get(url, headers=headers, verify=False, timeout=6)
-    return html
+# # 头部信息
+# def handler(url):
+#     session = requests.Session()
+#     user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'
+#     headers = {
+#         'Host': 'www.lagou.com',
+#         'User-Agent': user_agent,
+#         'Upgrade-Insecure-Requests': '1',
+#     }
+#     html = session.get(url, headers=headers, verify=False, timeout=6)
+#     return html
 
 
 # 获取某职位所有的页数
 def searchPage(position):
     url = 'https://www.lagou.com/jobs/list_' + position + '?labelWords=&fromSearch=true&suginput='
-    html = handler(url)
+    html = download(url)
     bsobj = bf(html.text, 'html.parser')
     pages = bsobj.find('span', {'class': 'span totalNum'}).get_text()
     return pages
@@ -38,7 +39,6 @@ def getLinks(position, city):
         url = 'http://www.lagou.com/jobs/positionAjax.json?city=' + city + '&first=true&kd=' + position + '&pn=' + str(i + 1)
         print url
         req = urllib2.Request(url)
-        # html = urllib2.urlopen(req).read()
         try:
             html = urllib2.urlopen(req)
         except urllib2.HTTPError, e:
@@ -58,29 +58,29 @@ def getLinks(position, city):
 
 # 获取职位信息
 def get_information(position, city):
-    conn = pymysql.connect(host='localhost', user='root', passwd=None, port=3306, use_unicode=True, charset='utf8mb4')
-    cur = conn.cursor()
-    cur.execute('create database if not EXISTS PositionAnalysis')
-    cur.execute('use PositionAnalysis')
-    cur.execute('drop table lagou_position_info')
-    cur.execute('create table lagou_position_info '
-                '(PositionId int PRIMARY KEY ,'
-                'Position VARCHAR(100), '
-                'Salary VARCHAR(100),'
-                'Publish_time VARCHAR(100),'
-                'City VARCHAR(100),'
-                'District VARCHAR(100),'
-                'BizArea VARCHAR(100),'
-                'Address VARCHAR(100),'
-                'CompanyId int,'
-                'Company VARCHAR(100),'
-                'CompanyLink VARCHAR(100),'
-                'Description TEXT)')
+    # conn = pymysql.connect(host='localhost', user='root', passwd=None, port=3306, use_unicode=True, charset='utf8mb4')
+    # cur = conn.cursor()
+    # cur.execute('create database if not EXISTS PositionAnalysis')
+    # cur.execute('use PositionAnalysis')
+    # cur.execute('drop table lagou_position_info')
+    # cur.execute('create table lagou_position_info '
+    #             '(PositionId int PRIMARY KEY ,'
+    #             'Position VARCHAR(100), '
+    #             'Salary VARCHAR(100),'
+    #             'Publish_time VARCHAR(100),'
+    #             'City VARCHAR(100),'
+    #             'District VARCHAR(100),'
+    #             'BizArea VARCHAR(100),'
+    #             'Address VARCHAR(100),'
+    #             'CompanyId int,'
+    #             'Company VARCHAR(100),'
+    #             'CompanyLink VARCHAR(100),'
+    #             'Description TEXT)')
 
     links = getLinks(position, city)
     for i in range(len(links)):
         time.sleep(3)
-        html = handler(links[i])
+        html = download(links[i])
         # print('正在解析第%d个职位...' % i)
         bsobj = bf(html.text, 'html.parser')
 
@@ -133,13 +133,13 @@ def get_information(position, city):
             # description.append(des[i].get_text())
             description = description + des[i].get_text() + '\n'
 
-        sql = "insert into lagou_position_info (PositionId, Position, Salary, Publish_time, City, District, BizArea, Address, CompanyId, Company, CompanyLink, Description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        # sql = "insert into lagou_position_info (PositionId, Position, Salary, Publish_time, City, District, BizArea, Address, CompanyId, Company, CompanyLink, Description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        #
+        # cur.execute(sql, (positionId, position, salary, publish_time, city, district, bizArea, address, companyId, company, companyLink,description))
+        # conn.commit()
 
-        cur.execute(sql, (positionId, position, salary, publish_time, city, district, bizArea, address, companyId, company, companyLink,description))
-        conn.commit()
-
-    cur.close()
-    conn.close()
+    # cur.close()
+    # conn.close()
 
 if __name__ =="__main__":
     position = raw_input("请输入搜索职位：>")
