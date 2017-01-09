@@ -4,9 +4,8 @@ import requests
 import logging
 def download(url):
     headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14',
     }
 
     # headers = [
@@ -40,3 +39,4 @@ def download(url):
             print proxy, "此IP已过期"
             with open('proxies.txt', 'wt') as fn:
                 fn.writelines(proxies[1:])
+            f.close()
