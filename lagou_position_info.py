@@ -171,12 +171,11 @@ def read_page(url, page_num, keyword):  # 模仿浏览器post需求信息，并�
 
 
 if __name__ =="__main__":
-    # position = raw_input("请输入搜索职位：>")
-    # position = position.decode('utf-8')
-    # city = raw_input("请输入城市：>")
-    # city = city.decode('utf-8')
-    # urls = get_information(position, city)
+    position = raw_input("请输入搜索职位：>")
+    position = position.decode('utf-8')
+    city = raw_input("请输入城市：>")
+    city = city.decode('utf-8')
+    urls = get_information(position, city)
     url = r'http://www.lagou.com/jobs/positionAjax.json?city=%E4%B8%8A%E6%B5%B7'
     keyword = raw_input('请输入您要搜索的语言类型：')
     page = read_page(url, 1, keyword)
-
