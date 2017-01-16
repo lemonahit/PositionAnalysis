@@ -16,14 +16,16 @@ import csv
 
 
 class Job_qcwy(threading.Thread):
-    def __init__(self, citys):
+    def __init__(self, jobarea):
         threading.Thread.__init__(self)
         # self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+jobarea+'&keyword='+keyword+'&keywordtype=2&curr_page='+str(pn)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
-        self.citys = jobarea
+        self.city = jobarea
         self.keywords = ['python', '大数据', '']
         self.headers = {
+            'Host': 'search.51job.com',
             'Upgrade-Insecure-Requests': '1',
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
             }
         self.filepath = '/Users/edz/Documents/project/PositionAnalysis/positions.csv'
         # self.data = {
@@ -60,28 +62,27 @@ class Job_qcwy(threading.Thread):
         w = csv.writer(f)
         try:
             # with self.db.cursor() as cur:
-            for city in self.citys:
-                for i in range(len(self.keywords)):
-                    for j in range(1,2):
-                        self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+city+'&keyword='+self.keywords[i]+'&keywordtype=2&curr_page='+str(j)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
-                        html = download(self.url)
-                        # html = self.session.get(self.url, headers=self.headers)
-                        html.encoding = 'gbk'
-                        bsobj = BeautifulSoup(html.text, 'html.parser')
-                        table = bsobj.find('div', {'class', 'dw_table'})
-                        all_els = table.findAll('div', {'class', 'el'})
-                        for i in range(1, len(all_els)):
-                            today = all_els[i].find('span', {'class', 't5'}).get_text()
-                            if today == self.today:
-                                link = all_els[i].find('a')['href']
-                                position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
-                                positionId = re.findall(r'\d+', link)[1]
-                                publish_time = self.today
-                                print position, companyName
-                                w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
-                                    # sql = "INSERT INTO `` () VALUE ()"
-                                    # cur.execute(sql)
-                                    # self.db.commit()
+            for i in range(len(self.keywords)):
+                for j in range(1,2):
+                    self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+self.city+'&keyword='+self.keywords[i]+'&keywordtype=2&curr_page='+str(j)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
+                    # html = download(self.url, self.headers)
+                    html = self.session.get(self.url, headers=self.headers)
+                    html.encoding = 'gbk'
+                    bsobj = BeautifulSoup(html.text, 'html.parser')
+                    table = bsobj.find('div', {'class', 'dw_table'})
+                    all_els = table.findAll('div', {'class', 'el'})
+                    for i in range(1, len(all_els)):
+                        today = all_els[i].find('span', {'class', 't5'}).get_text()
+                        if today == self.today:
+                            link = all_els[i].find('a')['href']
+                            position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
+                            positionId = re.findall(r'\d+', link)[1]
+                            publish_time = self.today
+                            print position, companyName
+                            w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
+                                # sql = "INSERT INTO `` () VALUE ()"
+                                # cur.execute(sql)
+                                # self.db.commit()
         finally:
             f.close()
             # self.db.close()
@@ -100,8 +101,8 @@ class Job_qcwy(threading.Thread):
     # 获取职位的详细信息
     def get_info(self, link):
         try:
-            html = download(link)
-            # html = self.session.get(link, headers=self.headers)
+            # html = download(link, self.headers)
+            html = self.session.get(link, headers=self.headers)
             html.encoding = 'gbk'
             bs = BeautifulSoup(html.text, 'html.parser')
 
@@ -141,6 +142,14 @@ if __name__ == '__main__':
         writer.writerow(['positionId', 'position', 'salary', 'Description_and_requirements', 'area', 'publish_time','companyName', 'companyNature', 'companyPersonnel', 'companyIntroduction'])
         f.close()
     jobarea = ['010000','020000']
-    t = Job_qcwy(jobarea)
-    t.start()
-    t.join()
+
+    threads = []
+
+    for i in range(len(jobarea)):
+        t = Job_qcwy(jobarea)
+        threads.append(t)
+
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
