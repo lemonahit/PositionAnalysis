@@ -64,7 +64,8 @@ class Job_qcwy(threading.Thread):
             # with self.db.cursor() as cur:
             for i in range(len(self.keywords)):
                 for j in range(1,2):
-                    self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+self.city+'&keyword='+self.keywords[i]+'&keywordtype=2&curr_page='+str(j)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
+                    self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+self.city+'&keyword='+self.keywords[i]+\
+                               '&keywordtype=2&curr_page='+str(j)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
                     # html = download(self.url, self.headers)
                     html = self.session.get(self.url, headers=self.headers)
                     html.encoding = 'gbk'
@@ -73,7 +74,7 @@ class Job_qcwy(threading.Thread):
                     all_els = table.findAll('div', {'class', 'el'})
                     for i in range(1, len(all_els)):
                         today = all_els[i].find('span', {'class', 't5'}).get_text()
-                        if today == self.today:
+                        if today == self.today:     # 判断发布的职位是否是当天的
                             link = all_els[i].find('a')['href']
                             position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
                             positionId = re.findall(r'\d+', link)[1]
@@ -146,7 +147,7 @@ if __name__ == '__main__':
     threads = []
 
     for i in range(len(jobarea)):
-        t = Job_qcwy(jobarea)
+        t = Job_qcwy(jobarea[i])
         threads.append(t)
 
     for thread in threads:
