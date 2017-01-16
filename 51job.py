@@ -102,6 +102,7 @@ class Job_qcwy(threading.Thread):
     # 获取职位的详细信息
     def get_info(self, link):
         try:
+            self.headers['Host'] = 'jobs.51job.com'
             # html = download(link, self.headers)
             html = self.session.get(link, headers=self.headers)
             html.encoding = 'gbk'
@@ -110,21 +111,33 @@ class Job_qcwy(threading.Thread):
             thjob = bs.find('div', {'class', 'tHeader tHjob'})
 
             cn = thjob.find('div', {'class', 'cn'})
+            # 职位
             JobName = cn.find('h1').get_text()
             lname = cn.find('span').get_text()
+            # 薪资
             salary = cn.find('strong').get_text()
             infos = bs.find('div', {'class', 'tCompany_main'}).find('div', {'class', 'bmsg job_msg inbox'}).get_text().replace('\t', '')
-            #职位描述
+
+            sps = bs.findAll('span', {'class', 'sp4'})
+            # 经验要求
+            experience = sps[0].get_text().replace('\n', '')
+            # 学历要求
+            education = sps[1].get_text().replace('\n', '')
+
+            #职位描述和任职要求
             Description_and_requirements = re.findall(r'(.*?)\r\n', infos)[0] + re.findall(r'(.*?)\r\n', infos)[1]
 
             a = bs.find('div', {'class', 'bmsg inbox'}).find('p', {'class', 'fp'})
+            # 工作地点
             area = lname + '-' + re.findall(r'span>(.*?)<', str(a))[0].replace('\t', '')
 
             #公司
             companyName = cn.find('p', {'class', 'cname'}).find('a').get_text()
             company = cn.find('p', {'class', 'msg ltype'}).get_text().replace('\r', '').replace('\t', '').replace(' ', '')
             company = company.decode('utf-8').encode('utf-8')
+            # 公司性质
             companyNature = re.findall(r'(.*?)\xc2\xa0', company)[0]
+            # 公司规模
             companyPersonnel = re.findall(r'(.*?)\xc2\xa0', company)[4]
             #公司描述
             companyIntroduction = bs.find('div', {'class', 'tmsg inbox'}).get_text().replace('\t', '').replace('\n', '')
