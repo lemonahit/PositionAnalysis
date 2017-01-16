@@ -25,7 +25,7 @@ def download(url, headers):
         try:
             html = session.get(url, proxies=proxy, headers=headers, timeout=3)
             if 400 <= html.status_code <= 600:
-                with open('proxies.txt', 'wt') as fn:
+                with open(filename, 'wt') as fn:
                     fn.writelines(proxies[1:])
                 return None
             else:
@@ -34,6 +34,6 @@ def download(url, headers):
                 return html
         except Exception as e:
             print proxy, "此IP已过期"
-            with open('proxies.txt', 'wt') as fn:
+            with open(filename, 'wt') as fn:
                 fn.writelines(proxies[1:])
             f.close()

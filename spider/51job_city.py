@@ -18,7 +18,8 @@ session = requests.Session()
 url = 'http://js.51jobcdn.com/in/js/2016/layer/area_array_c.js'
 html = session.get(url, headers=headers)
 
-f = open('citys.csv', 'a')
+filepath = '/Users/edz/Documents/project/PositionAnalysis/citys.csv'
+f = open(filepath, 'a')
 writer = csv.writer(f)
 writer.writerow(['CityName', 'CityId'])
 citys = re.findall(r'\n(.*?),', html.text)
