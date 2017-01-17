@@ -1,0 +1,103 @@
++ PYTHON_PATH=/Users/edz/.pyenv/versions/spider/bin/python
++ PATH=/Users/edz/Documents/project/PositionAnalysis/spider/download_proxy.py
++ /Users/edz/.pyenv/versions/spider/bin/python /Users/edz/Documents/project/PositionAnalysis/spider/download_proxy.py
+HTTPConnectionPool(host=u'106.46.136.119', port=808): Read timed out. (read timeout=3)
+{'http': u'106.46.136.119:808', 'https': u'106.46.136.119:808'} 不能用
+HTTPConnectionPool(host=u'111.76.129.204', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1082de9d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.129.204:808', 'https': u'111.76.129.204:808'} 不能用
+106.46.136.65:808
+HTTPConnectionPool(host=u'123.66.214.34', port=8118): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1082f63d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'123.66.214.34:8118', 'https': u'123.66.214.34:8118'} 不能用
+HTTPConnectionPool(host=u'125.46.64.91', port=8080): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x1082f6610>, u'Connection to 125.46.64.91 timed out. (connect timeout=3)'))
+{'http': u'125.46.64.91:8080', 'https': u'125.46.64.91:8080'} 不能用
+HTTPConnectionPool(host=u'119.53.132.87', port=8118): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1082f6850>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'119.53.132.87:8118', 'https': u'119.53.132.87:8118'} 不能用
+HTTPConnectionPool(host=u'115.154.138.79', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x1082f6a90>, u'Connection to 115.154.138.79 timed out. (connect timeout=3)'))
+{'http': u'115.154.138.79:808', 'https': u'115.154.138.79:808'} 不能用
+HTTPConnectionPool(host=u'27.206.128.209', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1082f6cd0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'27.206.128.209:9999', 'https': u'27.206.128.209:9999'} 不能用
+HTTPConnectionPool(host=u'27.206.242.141', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', error(54, 'Connection reset by peer')))
+{'http': u'27.206.242.141:9999', 'https': u'27.206.242.141:9999'} 不能用
+HTTPConnectionPool(host=u'27.206.164.151', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108306190>, u'Connection to 27.206.164.151 timed out. (connect timeout=3)'))
+{'http': u'27.206.164.151:9999', 'https': u'27.206.164.151:9999'} 不能用
+HTTPConnectionPool(host=u'60.185.128.184', port=3128): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x1083063d0>, u'Connection to 60.185.128.184 timed out. (connect timeout=3)'))
+{'http': u'60.185.128.184:3128', 'https': u'60.185.128.184:3128'} 不能用
+HTTPConnectionPool(host=u'111.76.133.118', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108306610>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.118:808', 'https': u'111.76.133.118:808'} 不能用
+182.89.30.97:8123
+("Connection broken: error(54, 'Connection reset by peer')", error(54, 'Connection reset by peer'))
+{'http': u'171.116.254.46:8118', 'https': u'171.116.254.46:8118'} 不能用
+HTTPConnectionPool(host=u'115.46.70.91', port=8118): Read timed out. (read timeout=3)
+{'http': u'115.46.70.91:8118', 'https': u'115.46.70.91:8118'} 不能用
+HTTPConnectionPool(host=u'122.240.170.133', port=8998): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108313110>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'122.240.170.133:8998', 'https': u'122.240.170.133:8998'} 不能用
+HTTPConnectionPool(host=u'60.185.137.100', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108313350>, u'Connection to 60.185.137.100 timed out. (connect timeout=3)'))
+{'http': u'60.185.137.100:808', 'https': u'60.185.137.100:808'} 不能用
+HTTPConnectionPool(host=u'110.72.40.149', port=8123): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108313590>, u'Connection to 110.72.40.149 timed out. (connect timeout=3)'))
+{'http': u'110.72.40.149:8123', 'https': u'110.72.40.149:8123'} 不能用
+HTTPConnectionPool(host=u'111.76.129.138', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1083137d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.129.138:808', 'https': u'111.76.129.138:808'} 不能用
+111.76.129.104:808
+HTTPConnectionPool(host=u'123.130.33.199', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108313e10>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'123.130.33.199:9999', 'https': u'123.130.33.199:9999'} 不能用
+HTTPConnectionPool(host=u'60.185.248.51', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108323090>, u'Connection to 60.185.248.51 timed out. (connect timeout=3)'))
+{'http': u'60.185.248.51:808', 'https': u'60.185.248.51:808'} 不能用
+HTTPConnectionPool(host=u'111.76.133.25', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1083232d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.25:808', 'https': u'111.76.133.25:808'} 不能用
+HTTPConnectionPool(host=u'106.46.136.145', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108323510>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'106.46.136.145:808', 'https': u'106.46.136.145:808'} 不能用
+HTTPConnectionPool(host=u'111.76.133.240', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108323750>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.240:808', 'https': u'111.76.133.240:808'} 不能用
+('Connection aborted.', BadStatusLine("''",))
+{'http': u'218.86.128.118:8118', 'https': u'218.86.128.118:8118'} 不能用
+HTTPConnectionPool(host=u'111.76.133.135', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108323b50>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.135:808', 'https': u'111.76.133.135:808'} 不能用
+HTTPConnectionPool(host=u'106.46.136.9', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108323dd0>, u'Connection to 106.46.136.9 timed out. (connect timeout=3)'))
+{'http': u'106.46.136.9:808', 'https': u'106.46.136.9:808'} 不能用
+183.129.151.130:80
+HTTPConnectionPool(host=u'111.76.133.206', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10832f450>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.206:808', 'https': u'111.76.133.206:808'} 不能用
+HTTPConnectionPool(host=u'182.88.82.217', port=8123): Read timed out. (read timeout=3)
+{'http': u'182.88.82.217:8123', 'https': u'182.88.82.217:8123'} 不能用
+HTTPConnectionPool(host=u'60.185.139.77', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10832f850>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'60.185.139.77:808', 'https': u'60.185.139.77:808'} 不能用
+HTTPConnectionPool(host=u'113.57.96.170', port=8088): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10832fad0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'113.57.96.170:8088', 'https': u'113.57.96.170:8088'} 不能用
+HTTPConnectionPool(host=u'182.89.7.14', port=8123): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x10832fd10>, u'Connection to 182.89.7.14 timed out. (connect timeout=3)'))
+{'http': u'182.89.7.14:8123', 'https': u'182.89.7.14:8123'} 不能用
+HTTPConnectionPool(host=u'123.166.218.160', port=8118): Read timed out. (read timeout=3)
+{'http': u'123.166.218.160:8118', 'https': u'123.166.218.160:8118'} 不能用
+HTTPConnectionPool(host=u'60.185.238.41', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10833f150>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'60.185.238.41:808', 'https': u'60.185.238.41:808'} 不能用
+HTTPConnectionPool(host=u'124.135.107.203', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10833f3d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'124.135.107.203:9999', 'https': u'124.135.107.203:9999'} 不能用
+HTTPConnectionPool(host=u'111.76.133.185', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x10833f610>, u'Connection to 111.76.133.185 timed out. (connect timeout=3)'))
+{'http': u'111.76.133.185:808', 'https': u'111.76.133.185:808'} 不能用
+HTTPConnectionPool(host=u'111.76.129.79', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10833f850>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.129.79:808', 'https': u'111.76.129.79:808'} 不能用
+HTTPConnectionPool(host=u'106.46.136.56', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10833fa90>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'106.46.136.56:808', 'https': u'106.46.136.56:808'} 不能用
+HTTPConnectionPool(host=u'110.73.12.197', port=8123): Read timed out. (read timeout=3)
+{'http': u'110.73.12.197:8123', 'https': u'110.73.12.197:8123'} 不能用
+HTTPConnectionPool(host=u'110.72.18.209', port=8123): Read timed out. (read timeout=3)
+{'http': u'110.72.18.209:8123', 'https': u'110.72.18.209:8123'} 不能用
+HTTPConnectionPool(host=u'111.76.133.193', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10834d0d0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'111.76.133.193:808', 'https': u'111.76.133.193:808'} 不能用
+HTTPConnectionPool(host=u'111.76.129.144', port=808): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x10834d350>, u'Connection to 111.76.129.144 timed out. (connect timeout=3)'))
+{'http': u'111.76.129.144:808', 'https': u'111.76.129.144:808'} 不能用
+HTTPConnectionPool(host=u'120.4.185.187', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10834d590>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'120.4.185.187:9999', 'https': u'120.4.185.187:9999'} 不能用
+('Connection aborted.', BadStatusLine("''",))
+{'http': u'182.134.11.249:8118', 'https': u'182.134.11.249:8118'} 不能用
+222.134.134.250:8118
+HTTPConnectionPool(host=u'124.135.38.119', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x10834dcd0>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'124.135.38.119:9999', 'https': u'124.135.38.119:9999'} 不能用
+HTTPConnectionPool(host=u'123.128.157.131', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x10834df90>, u'Connection to 123.128.157.131 timed out. (connect timeout=3)'))
+{'http': u'123.128.157.131:9999', 'https': u'123.128.157.131:9999'} 不能用
+HTTPConnectionPool(host=u'119.190.137.186', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108359210>: Failed to establish a new connection: [Errno 61] Connection refused',)))
+{'http': u'119.190.137.186:9999', 'https': u'119.190.137.186:9999'} 不能用
+HTTPConnectionPool(host=u'182.91.106.79', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ConnectTimeoutError(<requests.packages.urllib3.connection.HTTPConnection object at 0x108359450>, u'Connection to 182.91.106.79 timed out. (connect timeout=3)'))
+{'http': u'182.91.106.79:9999', 'https': u'182.91.106.79:9999'} 不能用
+HTTPConnectionPool(host=u'110.73.0.204', port=8123): Read timed out. (read timeout=3)
+{'http': u'110.73.0.204:8123', 'https': u'110.73.0.204:8123'} 不能用
+HTTPConnectionPool(host=u'140.255.125.59', port=9999): Max retries exceeded with url: http://ip.chinaz.com/getip.aspx (Caused by ProxyError('Cannot connect to proxy.', NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x108359850>: Failed to e

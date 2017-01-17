@@ -72,6 +72,7 @@ class Job_qcwy(threading.Thread):
                         bsobj = BeautifulSoup(html.text, 'html.parser')
                         table = bsobj.find('div', {'class', 'dw_table'})
                         all_els = table.findAll('div', {'class', 'el'})
+                        print len(all_els)
                         for i in range(1, len(all_els)):
                             today = all_els[i].find('span', {'class', 't5'}).get_text()
                             if today == self.today:     # 判断发布的职位是否是当天的
@@ -81,8 +82,8 @@ class Job_qcwy(threading.Thread):
                                 if cur.execute(s) == 0:
                                     position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
                                     publish_time = self.today
-                                    print position, companyName
-                                    w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
+                                    print position, salary, area, companyName
+                                    # w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
                                     try:
                                         sql = "INSERT INTO `51job_position_info` (`PositionId`, `Position`, `Salary`, `Description`, `Address`, `Publish_time`, `Company`, `CompanyNature`, `CompanyPersonnel`, `CompanyIntroduction` ) " \
                                               "VALUE ('"+positionId+"','"+position+"','"+salary+"','"+Description_and_requirements+"','"+area+"','"+publish_time+"','"+companyName+"','"+companyNature+"','"+companyPersonnel+"','"+companyIntroduction+"')"
@@ -90,9 +91,9 @@ class Job_qcwy(threading.Thread):
                                         self.db.commit()
                                         print sql
                                     except Exception as e:
-                                        print e.message
+                                        print e
                                 else:
-                                    print "已存在"
+                                    print positionId + "已存在"
         finally:
             f.close()
             self.db.close()
@@ -127,7 +128,6 @@ class Job_qcwy(threading.Thread):
             salary = cn.find('strong').get_text()
             if salary == None:
                 salary = ''
-
             infos = bs.find('div', {'class', 'tCompany_main'}).find('div', {'class', 'bmsg job_msg inbox'}).get_text().replace('\t', '').replace('\r', '')
             # sps = bs.findAll('span', {'class', 'sp4'})
             # # 经验要求
@@ -135,7 +135,7 @@ class Job_qcwy(threading.Thread):
             # # 学历要求
             # education = sps[1].get_text().replace('\n', '')
 
-            if infos != None:
+            if infos != '':
                 if re.findall(r'(.*?)\n', infos)[0] == '':
                 #职位描述和任职要求
                     Description_and_requirements = re.findall(r'(.*?)\n', infos)[1] + re.findall(r'(.*?)\n', infos)[2]
@@ -144,26 +144,48 @@ class Job_qcwy(threading.Thread):
             else:
                 Description_and_requirements = ''
 
-            a = bs.find('div', {'class', 'bmsg inbox'}).find('p', {'class', 'fp'})
-            if a == None:
-                a = ''
-            # 工作地点
-            area = lname + '-' + re.findall(r'span>(.*?)<', str(a))[0].replace('\t', '')
+            a = bs.find('div', {'class', 'bmsg inbox'})
+            if a != None:
+                ar = a.find('p', {'class', 'fp'})
+                # 工作地点
+                area = lname + '-' + re.findall(r'span>(.*?)<', str(ar))[0].replace('\t', '').decode('utf-8')
+            else:
+                area = lname
 
             #公司
             companyName = cn.find('p', {'class', 'cname'}).find('a').get_text()
             if companyName == None:
                 companyName = ''
             company = cn.find('p', {'class', 'msg ltype'}).get_text().replace('\r', '').replace('\t', '').replace(' ', '')
-            company = company.decode('utf-8').encode('utf-8')
-            # 公司性质
-            companyNature = re.findall(r'(.*?)\xc2\xa0', company)[0]
-            if companyNature == None:
-                companyNature = ''
-            # 公司规模
-            companyPersonnel = re.findall(r'(.*?)\xc2\xa0', company)[4]
-            if companyPersonnel == None:
-                companyPersonnel = ''
+            try:
+                company = company.decode('utf-8').encode('utf-8')
+            except:
+                pass
+            if re.findall(r'(.*?)\xc2\xa0', company) != []:
+                q = re.findall(r'(.*?)\xc2\xa0', company)[0]
+                if re.findall(r'\d', q) == []:
+                    # 公司性质
+                    companyNature = q
+                    if len(re.findall(r'(.*?)\xc2\xa0', company)) > 2:
+                        # 公司规模
+                        companyPersonnel = re.findall(r'(.*?)\xc2\xa0', company)[4]
+                    else:
+                        companyPersonnel = ''
+                else:
+                    companyNature = ''
+                    companyPersonnel = q
+            else:
+                q = re.findall(r'(.*?)\xa0\xa0', company)[0]
+                if re.findall(r'\d', q) == []:
+                    companyNature = q
+                    if len(re.findall(r'(.*?)\xa0\xa0', company)) > 2:
+                        companyPersonnel = re.findall(r'(.*?)\xa0\xa0', company)[2]
+                    else:
+                        companyPersonnel = ''
+                else:
+                    companyNature = ''
+                    companyPersonnel = q
+
             #公司描述
             companyIntroduction = bs.find('div', {'class', 'tmsg inbox'}).get_text().replace('\t', '').replace('\n', '')
             if companyIntroduction == None:
@@ -172,16 +194,17 @@ class Job_qcwy(threading.Thread):
             return JobName, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction
 
         except Exception as e:
+            print link
             print e.message
 
 
 if __name__ == '__main__':
-    filepath = '/Users/edz/Documents/project/PositionAnalysis/positions.csv'
-    if not os.path.isfile(filepath):
-        f = open(filepath, 'a')
-        writer = csv.writer(f)
-        writer.writerow(['positionId', 'position', 'salary', 'experience', 'education', 'Description_and_requirements', 'area', 'publish_time','companyName', 'companyNature', 'companyPersonnel', 'companyIntroduction'])
-        f.close()
+    # filepath = '/Users/edz/Documents/project/PositionAnalysis/positions.csv'
+    # if not os.path.isfile(filepath):
+    #     f = open(filepath, 'a')
+    #     writer = csv.writer(f)
+    #     writer.writerow(['positionId', 'position', 'salary', 'Description_and_requirements', 'area', 'publish_time','companyName', 'companyNature', 'companyPersonnel', 'companyIntroduction'])
+    #     f.close()
     jobarea = ['010000','020000']
 
     threads = []
