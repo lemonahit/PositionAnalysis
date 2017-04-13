@@ -16,11 +16,11 @@ import csv
 
 
 class Job_qcwy(threading.Thread):
-    def __init__(self, jobarea):
+    def __init__(self, jobarea, keyword):
         threading.Thread.__init__(self)
         # self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+jobarea+'&keyword='+keyword+'&keywordtype=2&curr_page='+str(pn)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
         self.city = jobarea
-        self.keywords = ['大数据']
+        self.keyword = keyword
         self.headers = {
             'Host': 'search.51job.com',
             'Upgrade-Insecure-Requests': '1',
@@ -62,42 +62,40 @@ class Job_qcwy(threading.Thread):
         w = csv.writer(f)
         try:
             with self.db.cursor() as cur:
-                for i in range(len(self.keywords)):
-                    for j in range(1,2):
-                        self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+self.city+'&keyword='+self.keywords[i]+\
-                                   '&keywordtype=2&curr_page='+str(j)+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
-                        html = download(self.url, self.headers)
-                        # html = self.session.get(self.url, headers=self.headers)
-                        html.encoding = 'gbk'
-                        bsobj = BeautifulSoup(html.text, 'html.parser')
-                        table = bsobj.find('div', {'class', 'dw_table'})
-                        all_els = table.findAll('div', {'class', 'el'})
-                        if all_els:
-                            print len(all_els)
-                            for i in range(1, len(all_els)):
-                                today = all_els[i].find('span', {'class', 't5'}).get_text()
-                                if today == self.today:     # 判断发布的职位是否是当天的
-                                    link = all_els[i].find('a')['href']
-                                    print link
-                                    positionId = re.findall(r'\d+', link)[1]
-                                    s = "SELECT `Position` FROM `51job_position_info` where `PositionId`='" + positionId + "'"
-                                    if cur.execute(s) == 0:
-                                        position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
-                                        publish_time = self.today
-                                        print position, salary, area, companyName
-                                        # w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
-                                        try:
-                                            sql = "INSERT INTO `51job_position_info` (`PositionId`, `Position`, `Salary`, `Description`, `Address`, `Publish_time`, `Company`, `CompanyNature`, `CompanyPersonnel`, `CompanyIntroduction` ) " \
-                                                  "VALUE ('"+positionId+"','"+position+"','"+salary+"','"+Description_and_requirements+"','"+area+"','"+publish_time+"','"+companyName+"','"+companyNature+"','"+companyPersonnel+"','"+companyIntroduction+"')"
-                                            cur.execute(sql)
-                                            self.db.commit()
-                                            print sql
-                                        except Exception as e:
-                                            print e
-                                    else:
-                                        print positionId + "已存在"
-                        else:
-                            print all_els
+                # for j in range(1,3):
+                self.url = 'http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea='+self.city+'&keyword='+self.keyword+ '&keywordtype=2&curr_page='+'2'+'&lang=c&stype=2&postchannel=0000&fromType=1&confirmdate=9'
+                html = download(self.url, self.headers)
+                # html = self.session.get(self.url, headers=self.headers)
+                html.encoding = 'gbk'
+                bsobj = BeautifulSoup(html.text, 'html.parser')
+                table = bsobj.find('div', {'class', 'dw_table'})
+                all_els = table.findAll('div', {'class', 'el'})
+                if all_els:
+                    print len(all_els)
+                    for i in range(1, len(all_els)):
+                        today = all_els[i].find('span', {'class', 't5'}).get_text()
+                        if today == self.today:     # 判断发布的职位是否是当天的
+                            link = all_els[i].find('a')['href']
+                            print link
+                            positionId = re.findall(r'\d+', link)[1]
+                            s = "SELECT `Position` FROM `51job_position_info` where `PositionId`='" + positionId + "'"
+                            if cur.execute(s) == 0:
+                                position, salary, area, Description_and_requirements, companyName, companyNature, companyPersonnel, companyIntroduction = self.get_info(link)
+                                publish_time = self.today
+                                print position, salary, area, companyName
+                                # w.writerow([positionId, position, salary, Description_and_requirements, area, publish_time, companyName, companyNature, companyPersonnel, companyIntroduction])
+                                try:
+                                    sql = "INSERT INTO `51job_position_info` (`PositionId`, `Position`, `Salary`, `Description`, `Address`, `Publish_time`, `Company`, `CompanyNature`, `CompanyPersonnel`, `CompanyIntroduction` ) " \
+                                          "VALUE ('"+positionId+"','"+position+"','"+salary+"','"+Description_and_requirements+"','"+area+"','"+publish_time+"','"+companyName+"','"+companyNature+"','"+companyPersonnel+"','"+companyIntroduction+"')"
+                                    cur.execute(sql)
+                                    self.db.commit()
+                                    print sql
+                                except Exception as e:
+                                    print e
+                            else:
+                                print positionId + "已存在"
+                else:
+                    print all_els
         finally:
             f.close()
             self.db.close()
@@ -228,15 +226,7 @@ if __name__ == '__main__':
     #     writer = csv.writer(f)
     #     writer.writerow(['positionId', 'position', 'salary', 'Description_and_requirements', 'area', 'publish_time','companyName', 'companyNature', 'companyPersonnel', 'companyIntroduction'])
     #     f.close()
-    jobarea = ['010000']
+    jobarea = '020000'
+    keyword = '大数据'
 
-    threads = []
-
-    for i in range(len(jobarea)):
-        t = Job_qcwy(jobarea[i])
-        threads.append(t)
-
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
+    Job_qcwy(jobarea, keyword)
